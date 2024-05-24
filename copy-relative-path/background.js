@@ -59,11 +59,16 @@ chrome.action.onClicked.addListener((tab) => {
         let pageTitle = getTitle(decodedHashFragment);
   
         // List of specific files to check against
-        const specialFiles = ["tidb-configuration-file.md", "tikv-configuration-file", "pd-configuration-file.md", "system-variables.md","status-variables.md"];
+        const specialFiles = ["tidb-configuration-file.md", "tikv-configuration-file", "pd-configuration-file.md", "system-variables.md","status-variables.md","string-functions.md"];
+        const sqlStatementsPath = "/sql-statements/";
   
         // Check if the conditions are met for wrapping the title with backticks
-        if (specialFiles.some(file => elementUrl.href.includes(file)) && !pageTitle.includes(' ')) {
-          pageTitle = `\`${pageTitle}\``
+        const isSpecialFile = specialFiles.some(file => elementUrl.href.includes(file));
+        const isSqlStatementFile = elementUrl.pathname.includes(sqlStatementsPath);
+        const isTitleSingleWord = !pageTitle.includes(' ');
+  
+        if ((isSpecialFile && isTitleSingleWord) || (isSqlStatementFile && decodedHashFragment === "")) {
+          pageTitle = `\`${pageTitle}\``;
         }
   
         // Create the markdown link
