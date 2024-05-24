@@ -1,8 +1,8 @@
   {
     "manifest_version": 3,
-    "name": "Copy Relative Path",
+    "name": "Copy Markdown Link",
     "version": "1.0",
-    "description": "A Chrome extension to copy the relative path from a specific element in TiDB documentation.",
+    "description": "Copy the markdown link of your current URL. For https://docs.pingcap.com/, it copies the markdown link of the source doc URL.",
     "permissions": ["activeTab", "clipboardWrite", "scripting"],
     "action": {
       "default_icon": {
@@ -18,5 +18,14 @@
       "16": "icon.png",
       "48": "icon.png",
       "128": "icon.png"
+    },
+    "commands": {
+        "copy-markdown-link": {
+          "suggested_key": {
+            "default": "Ctrl+Q",
+            "mac": "Ctrl+Q"
+          },
+          "description": "Copy markdown link"
+        }
+      }
     }
-  }
