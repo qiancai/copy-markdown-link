@@ -48,6 +48,14 @@ chrome.action.onClicked.addListener((tab) => {
       const pageUrlObj = new URL(pageUrl);
       const decodedHashFragment = decodeURIComponent(pageUrlObj.hash);
   
+      // If the URL does not contain "docs.pingcap.com", use the document title
+      if (!pageUrl.includes("docs.pingcap.com")) {
+        const pageTitle = document.title;
+        const markdownLink = `[${pageTitle}](${pageUrl})`;
+        copyToClipboard(markdownLink);
+        return;
+      }
+  
       // Find the first element with the specific class
       const element = document.querySelector('a.MuiTypography-root.MuiTypography-body1.css-1pgvqdl');
       if (element) {
