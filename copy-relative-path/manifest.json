@@ -22,8 +22,8 @@
     "commands": {
         "copy-markdown-link": {
           "suggested_key": {
-            "default": "Ctrl+Q",
-            "mac": "Ctrl+Q"
+            "default": "Alt+Q",
+            "mac": "MacCtrl+Q"
           },
           "description": "Copy markdown link"
         }
