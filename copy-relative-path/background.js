@@ -36,7 +36,7 @@ chrome.action.onClicked.addListener((tab) => {
         return h1Element ? h1Element.textContent.trim() : "No Title Found";
       } else {
         // Get the title from the corresponding heading element (h2, h3, etc.)
-        const headingElement = document.querySelector(decodedHashFragment);
+        const headingElement = document.querySelector(`h1${decodedHashFragment}, h2${decodedHashFragment}, h3${decodedHashFragment}, h4${decodedHashFragment}, h5${decodedHashFragment}, h6${decodedHashFragment}`);
         if (headingElement) {
           // Clone the heading element to avoid modifying the original element
           const clonedElement = headingElement.cloneNode(true);
@@ -64,7 +64,23 @@ chrome.action.onClicked.addListener((tab) => {
       if (element) {
         const elementHref = element.href;
         const elementUrl = new URL(elementHref);
-        const relativePath = elementUrl.pathname.replace(/^\/pingcap\/docs(-cn)?\/blob\/[^\/]+/, '') + (decodedHashFragment || '');
+
+        let relativePath;
+
+        switch (true) {
+            case elementHref.includes("github.com/pingcap/docs-tidb-operator"):
+                relativePath = elementUrl.pathname.replace(/^\/pingcap\/docs-tidb-operator\/blob\/[^\/]+\/[^\/]+\//, '') + (decodedHashFragment || '');
+                break;
+            case elementHref.includes("github.com/pingcap/docs"):
+                console.log("Matched");
+                relativePath = elementUrl.pathname.replace(/^\/pingcap\/docs(-cn)?\/blob\/[^\/]+/, '') + (decodedHashFragment || '');
+                break;
+            default:
+                const pageTitle = document.title;
+                const markdownLink = `[${pageTitle}](${pageUrl})`;
+                copyToClipboard(markdownLink);
+                return;
+        }
 
         let pageTitle = getTitle(decodedHashFragment);
 
