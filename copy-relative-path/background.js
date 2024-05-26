@@ -72,7 +72,6 @@ chrome.action.onClicked.addListener((tab) => {
                 relativePath = elementUrl.pathname.replace(/^\/pingcap\/docs-tidb-operator\/blob\/[^\/]+\/[^\/]+\//, '') + (decodedHashFragment || '');
                 break;
             case elementHref.includes("github.com/pingcap/docs"):
-                console.log("Matched");
                 relativePath = elementUrl.pathname.replace(/^\/pingcap\/docs(-cn)?\/blob\/[^\/]+/, '') + (decodedHashFragment || '');
                 break;
             default:
@@ -91,8 +90,9 @@ chrome.action.onClicked.addListener((tab) => {
         const isSpecialFile = specialFiles.some(file => elementUrl.href.includes(file));
         const isSqlStatementFile = elementUrl.pathname.includes(sqlStatementsPath);
         const isTitleSingleWord = !pageTitle.includes(' ');
+        const isNotChinese = !/[\u4E00-\u9FFF]/.test(pageTitle);
 
-        if ((isSpecialFile && isTitleSingleWord) || (isSqlStatementFile && decodedHashFragment === "")) {
+        if ((isSpecialFile && isTitleSingleWord && isNotChinese) || (isSqlStatementFile && decodedHashFragment === "")) {
           pageTitle = `\`${pageTitle}\``;
         }
 
