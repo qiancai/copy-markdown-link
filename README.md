@@ -1,6 +1,6 @@
 # Copy Markdown Link
 
-[Copy Markdown Link](https://chromewebstore.google.com/detail/copy-markdown-link/amekohfcgphhdbmnjklclhhmlklbpbnd) is a Chrome extension designed to help you quickly obtain the markdown link of any TiDB document or section with a single click. This tool is especially useful when you are writing or editing TiDB documents.
+[Copy Markdown Link](https://chromewebstore.google.com/detail/copy-markdown-link/amekohfcgphhdbmnjklclhhmlklbpbnd) is a Chrome extension designed to help you quickly obtain the markdown link of any TiDB document or section with a single click. This tool is especially useful when you are writing or editing [TiDB documents](https://docs.pingcap.com/tidb).
 
 ## Features
 
