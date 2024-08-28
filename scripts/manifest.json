@@ -1,8 +1,8 @@
   {
     "manifest_version": 3,
     "name": "Copy Markdown Link",
-    "version": "1.0",
-    "description": "Copy the markdown link of your current URL. For https://docs.pingcap.com/, it copies the markdown link of the source doc URL.",
+    "version": "1.1",
+    "description": "Helps you quickly obtain the markdown link of the current webpage with a single click.",
     "permissions": ["activeTab", "clipboardWrite", "scripting", "notifications"],
     "action": {
       "default_icon": {
