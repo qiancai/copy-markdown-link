@@ -27,6 +27,7 @@ chrome.action.onClicked.addListener((tab) => {
       document.execCommand('copy');
       document.body.removeChild(textarea);
       console.log("Copied to clipboard:", text);
+      chrome.runtime.sendMessage({ action: "showCopiedNotification" });
     }
 
     function getTitle(decodedHashFragment) {
@@ -115,3 +116,15 @@ chrome.action.onClicked.addListener((tab) => {
 
     getAndCopyUrls();
   }
+
+//Show a green marker after the markdown link is copied.
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "showCopiedNotification") {
+        chrome.action.setBadgeText({ text: " " });
+        chrome.action.setBadgeBackgroundColor({ color: "#4caf50" });
+
+        setTimeout(() => {
+            chrome.action.setBadgeText({ text: "" });
+        }, 500);  // The marker disappears after 0.5 second.
+    }
+});

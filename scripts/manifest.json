@@ -3,7 +3,7 @@
     "name": "Copy Markdown Link",
     "version": "1.0",
     "description": "Copy the markdown link of your current URL. For https://docs.pingcap.com/, it copies the markdown link of the source doc URL.",
-    "permissions": ["activeTab", "clipboardWrite", "scripting"],
+    "permissions": ["activeTab", "clipboardWrite", "scripting", "notifications"],
     "action": {
       "default_icon": {
         "16": "icon.png",
