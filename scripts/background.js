@@ -61,7 +61,7 @@ chrome.action.onClicked.addListener((tab) => {
       const decodedHashFragment = decodeURIComponent(pageUrlObj.hash);
 
       // Find the first element with the specific class
-      const element = document.querySelector('a.MuiTypography-root.MuiTypography-body1.css-1pgvqdl');
+      const element = document.querySelector('a.MuiTypography-root.MuiTypography-body1.css-7qnw2d');
       if (element) {
         const elementHref = element.href;
         const elementUrl = new URL(elementHref);
