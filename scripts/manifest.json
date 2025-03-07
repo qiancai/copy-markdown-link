@@ -1,7 +1,7 @@
   {
     "manifest_version": 3,
     "name": "Copy Markdown Link",
-    "version": "1.3",
+    "version": "1.4",
     "description": "Helps you quickly obtain the markdown link of the current webpage with a single click.",
     "permissions": ["activeTab", "clipboardWrite", "scripting", "notifications"],
     "action": {

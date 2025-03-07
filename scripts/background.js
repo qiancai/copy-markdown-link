@@ -105,8 +105,8 @@ chrome.action.onClicked.addListener((tab) => {
           const sqlStatementsPath = "/sql-statements/";
 
           // Check if the conditions are met for wrapping the title with backticks
-          const mdfilename = relativePath ? relativePath.match(/([^\/]+\.md)$/)?.[1] || '' : '';
-          const isSpecialFile = specialFiles.some(file => mdfilename.includes(file));
+          const mdFilename = relativePath ? relativePath.match(/([^\/]+\.md)$/)?.[1] || '' : '';
+          const isSpecialFile = specialFiles.some(file => mdFilename.includes(file));
           const isSqlStatementFile = relativePath.includes(sqlStatementsPath);
           const isTitleSingleWord = !pageTitle.includes(' ');
           const isNotChinese = !/[\u4E00-\u9FFF]/.test(pageTitle);
