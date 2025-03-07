@@ -78,7 +78,7 @@ chrome.action.onClicked.addListener((tab) => {
                       // Delete the content before the third /
                       const parts = relativePath.split('/');
                       if (parts.length >= 4) {
-                          relativePath = '/' + parts.slice(3).join('/');
+                          relativePath = parts.slice(3).join('/');
                       }
                   }
                   break;
