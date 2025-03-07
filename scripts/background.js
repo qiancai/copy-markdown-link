@@ -60,8 +60,13 @@ chrome.action.onClicked.addListener((tab) => {
       const pageUrlObj = new URL(pageUrl);
       const decodedHashFragment = decodeURIComponent(pageUrlObj.hash);
 
-      // Find the first element with the specific class
-      const element = document.querySelector('#gatsby-focus-wrapper > div > div > main > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > a:nth-of-type(1)');
+      let element;
+
+      if (!pageUrl.includes("docs.pingcap.com/tidbcloud")) {
+        const element = document.querySelector('#gatsby-focus-wrapper > div > div > main > div > div.css-1q5cbag > div.MuiBox-root.css-tirkga > div > div > a:nth-child(2)');
+      } else {
+        const element = document.querySelector('#gatsby-focus-wrapper > div > div > main > div > div.css-1q5cbag > div.MuiBox-root.css-tirkga > div > div > a:nth-child(1)');
+      }
       if (element) {
         const elementHref = element.getAttribute('href');
         //console.log(elementHref);
@@ -71,10 +76,25 @@ chrome.action.onClicked.addListener((tab) => {
 
         switch (true) {
             case elementHref.includes("github.com/pingcap/docs-tidb-operator"):
-                relativePath = elementUrl.pathname.replace(/^\/pingcap\/docs-tidb-operator\/blob\/[^\/]+\/[^\/]+\//, '') + (decodedHashFragment || '');
+                relativePath = elementHref.match(/File:%20\[([^\]]+)\]/);
+                if (relativePath) {
+                    relativePath = relativePath[1];
+                    // Delete the content before the third /
+                    const parts = relativePath.split('/');
+                    if (parts.length >= 4) {
+                        relativePath = '/' + parts.slice(3).join('/');
+                    }
+                }
                 break;
             case elementHref.includes("github.com/pingcap/docs"):
-                relativePath = elementUrl.pathname.replace(/^\/pingcap\/docs(-cn)?\/blob\/[^\/]+/, '') + (decodedHashFragment || '');
+                relativePath = elementHref.match(/File:%20\[([^\]]+)\]/);
+                if (relativePath) {
+                    // Delete the content before the second /
+                    const parts = relativePath[1].split('/');
+                    if (parts.length >= 3) {
+                        relativePath = '/' + parts.slice(2).join('/');
+                    }
+                }
                 break;
             default:
                 const pageTitle = document.title;
@@ -85,7 +105,7 @@ chrome.action.onClicked.addListener((tab) => {
 
         let pageTitle = getTitle(decodedHashFragment);
 
-        const specialFiles = ["tidb-configuration-file.md", "tikv-configuration-file", "pd-configuration-file.md", "system-variables.md","status-variables.md","string-functions.md"];
+        const specialFiles = ["tidb-configuration-file.md", "tikv-configuration-file", "pd-configuration-file.md", "system-variables.md","status-variables.md","string-functions.md","tiproxy-configuration.md","tidb-lightning-configuration.md","tiflash-configuration.md","dm-master-configuration-file.md","dm-source-configuration-file.md", "dm-worker-configuration-file.md","task-configuration-file-full.md", "ticdc-changefeed-config.md", "ticdc-server-config.md"];
         const sqlStatementsPath = "/sql-statements/";
 
         // Check if the conditions are met for wrapping the title with backticks
@@ -98,8 +118,8 @@ chrome.action.onClicked.addListener((tab) => {
           pageTitle = `\`${pageTitle}\``;
         }
 
-        // Create the markdown link
-        const markdownLink = `[${pageTitle}](${relativePath})`;
+        // Create a markdown link with the anchor point
+        const markdownLink = `[${pageTitle}](${relativePath}${decodedHashFragment || ''})`;
 
         // Log the element href and page url
         // console.log("Element Href:", elementHref);
