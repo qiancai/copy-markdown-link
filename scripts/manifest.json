@@ -3,7 +3,7 @@
     "name": "Copy Markdown Link",
     "version": "1.4",
     "description": "Helps you quickly obtain the markdown link of the current webpage with a single click.",
-    "permissions": ["activeTab", "clipboardWrite", "scripting", "notifications"],
+    "permissions": ["activeTab", "clipboardWrite", "scripting"],
     "action": {
       "default_icon": {
         "16": "icon.png",
